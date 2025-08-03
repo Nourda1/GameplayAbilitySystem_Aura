@@ -24,10 +24,24 @@ void AAuraPlayerController::CursorTrace()
 {
 	FHitResult CursorHit;
 	GetHitResultUnderCursor(ECC_Visibility, false, CursorHit);
-	if (!CursorHit.bBlockingHit) return;
+	if (!CursorHit.bBlockingHit) return; //if no blocking hit, exits function
 
 	LastActor = ThisActor;
 	ThisActor = CursorHit.GetActor();
+
+	// simplified version
+	if (ThisActor != LastActor)
+	{
+		if (LastActor != nullptr)
+		{
+			LastActor->UnHighlightActor();
+		}
+ 
+		if (ThisActor != nullptr)
+		{
+			ThisActor->HighlightActor();
+		}
+	}
 	
 	/*
 	 * LineTrace from cursor. There are several scenarios:
@@ -41,7 +55,7 @@ void AAuraPlayerController::CursorTrace()
 	 *  - Unhighlight LastActor, Highlight ThisActor
 	 * E. Both actors are valid, and are the same actor
 	 *  - Do nothing
-	 */
+	 
 
 	if (LastActor == nullptr)
 	{
@@ -75,22 +89,9 @@ void AAuraPlayerController::CursorTrace()
 				//Case E - Do nothing
 			}
 		}
-	}
+	}  */
 }
-	/* simplified version
-	*if (ThisActor != LastActor)
-	{
-	if (LastActor != nullptr)
-	{
-	LastActor->UnhighlightActor();
-	}
- 
-	if (ThisActor != nullptr)
-	{
-	ThisActor->HighlightActor();
-	}
-	}
-*/
+	
 
 void AAuraPlayerController::BeginPlay()
 {
@@ -125,7 +126,7 @@ void AAuraPlayerController::Move(const FInputActionValue& InputActionValue)
 {
 	const FVector2D InputAxisVector = InputActionValue.Get<FVector2D>(); //gets X and Y axis values in Vector2D
 	//const FRotator Rotation = GetControlRotation(); //shows forward Direction based on camera view, controller rotation
-	//const FRotator YawRotation(0,Rotation.Yaw,0); //intitalizes yaw rotation
+	//const FRotator YawRotation(0,Rotation.Yaw,0); //initializes yaw rotation
 
 	//const FVector ForwardDirection = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::X); //Forward Vector axis
 	//const FVector RightDirection = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::Y); //Right Vector Axis

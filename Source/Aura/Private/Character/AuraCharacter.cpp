@@ -38,7 +38,7 @@ void AAuraCharacter::OnRep_PlayerState()
 
 void AAuraCharacter::InitAbilityActorInfo()
 {
-	AAuraPlayerState* AuraPlayerState = GetPlayerState<AAuraPlayerState>(); //GetsPlayerState and assigns to AuraPlayerState Ptr
+	AAuraPlayerState* AuraPlayerState = GetPlayerState<AAuraPlayerState>(); //GetsPlayerState and assigns to AuraPlayerState Pointer
 	check(AuraPlayerState) //checks if valid
 	
 	//Initializes player state and sets OwnerActor(AuraPlayerState) and AvatarActor(this = AuraCharacter)
